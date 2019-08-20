@@ -1,0 +1,35 @@
+需要注意的地方在安装 velodyne drivers时
+
+errors:
+
+sudo apt-get install ros-{YOUR ROS DISTRO}-velodyne 
+上面的命令要针对电脑上所安装的 ros版本
+
+当前电脑ros版本是 kinetic 所以输入的安装命令是 ：
+sudo apt-get install ros-kinetic-velodyne
+但出现了下面的错误:
+E: Failed to fetch http://packages.ros.org/ros/ubuntu/pool/main/r/ros-kinetic-velodyne/ros-kinetic-velodyne_1.5.2-0xenial-20190320-193343-0800_amd64.deb  404  Not Found [IP: 64.50.233.100 80]
+
+
+reason: 
+
+Note: the velodyne packages have not yet been released into Kinetic, so ros-kinetic-velodyne will not work.
+
+Solution:
+
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/ros-drivers/velodyne.git
+
+Install all the dependencies:
+
+$ cd ..
+$ rosdep install --from-paths src --ignore-src --rosdistro indigo -y
+
+Then, build everything:
+
+$ catkin_make
+$ source devel/setup.bash
+
+
+ 
